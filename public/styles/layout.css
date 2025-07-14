@@ -10,9 +10,12 @@ html {
   box-sizing: inherit;
 }
 
-/*
- * Global layout stuff
- */
+/* Global changes are made here */
+main {
+  width: 90%;
+  margin: 0 auto; /* centers the element horizontally */
+  background-color: #f4f1ec; /* same as body background-color */
+}
 
 body {
   color: #545149;
