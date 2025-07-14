@@ -1,31 +1,37 @@
 nav {
+  position: fixed;
+  top: 0;
+  left: 0;
   height: 120px;
-  width: 100vw; /* full viewport width */
+  width: 100vw; /* Make sure to use vw here, not w */
+  z-index: 1000; /* Keep nav above other content */
   background-color: #4056A1;
   color: #FFFFFF;
-  padding: 0 1.5em; /* left and right padding */
+  padding: 0 1.5em;
   display: flex;
-  align-items: center; /* vertically center content */
-  justify-content: space-between; /* space between left and right content */
+  align-items: center; /* vertically center */
+  justify-content: space-between;
   box-sizing: border-box;
   font-size: 1.5rem;
 }
 
-/* Apply Bungee font to <span> inside nav */
-nav span {
+/* Apply Bungee font only to the nav-title */
+nav .nav-title {
   font-family: 'Bungee', cursive;
 }
 
-/* Right side container */
-nav .right-content {
-  text-align: right;
+/* Make the tweet button a flex container for vertical alignment */
+nav .nav-tweet-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center horizontally */
+  justify-content: center; /* center vertically */
   font-size: 1rem;
-  cursor: default; /* for now, non-interactive */
+  cursor: default;
 }
 
 /* Icon styling */
-nav .right-content i {
-  display: block;
+nav .nav-tweet-btn i {
   font-size: 1.5rem;
   margin-top: 0.25em;
   color: #FFFFFF;
