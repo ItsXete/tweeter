@@ -14,7 +14,7 @@ html {
 main {
   width: 90%;
   margin: 0 auto; /* centers the element horizontally */
-  background-color: #f4f1ec; /* same as body background-color */
+  background-color: inherit; /* from body */
 }
 
 body {
