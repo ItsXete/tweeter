@@ -1,0 +1,32 @@
+nav {
+  height: 120px;
+  width: 100vw; /* full viewport width */
+  background-color: #4056A1;
+  color: #FFFFFF;
+  padding: 0 1.5em; /* left and right padding */
+  display: flex;
+  align-items: center; /* vertically center content */
+  justify-content: space-between; /* space between left and right content */
+  box-sizing: border-box;
+  font-size: 1.5rem;
+}
+
+/* Apply Bungee font to <span> inside nav */
+nav span {
+  font-family: 'Bungee', cursive;
+}
+
+/* Right side container */
+nav .right-content {
+  text-align: right;
+  font-size: 1rem;
+  cursor: default; /* for now, non-interactive */
+}
+
+/* Icon styling */
+nav .right-content i {
+  display: block;
+  font-size: 1.5rem;
+  margin-top: 0.25em;
+  color: #FFFFFF;
+}
