@@ -1,8 +1,49 @@
 $(document).ready(function () {
 
+  const renderTweets = function(tweets) {
+    const $tweetsContainer = $('.tweets-container');
+    $tweetsContainer.empty();
+
+    tweets.forEach(tweet => {
+      const $tweet = createTweetElement(tweet);
+      $tweetsContainer.prepend($tweet);
+    });
+  };
+
+  const createTweetElement = function(tweet) {
+    // Escape text to avoid XSS
+    const escape = function(str) {
+      let div = document.createElement('div');
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
+    };
+
+    return $(`
+      <article class="tweet">
+        <header>
+          <div class="tweet-author">
+            <img src="${escape(tweet.user.avatars)}" alt="User Avatar" />
+            <span class="name">${escape(tweet.user.name)}</span>
+          </div>
+          <span class="handle">${escape(tweet.user.handle)}</span>
+        </header>
+        <p class="tweet-content">${escape(tweet.content.text)}</p>
+        <footer>
+          <span class="time">${timeago.format(tweet.created_at)}</span>
+          <div class="tweet-actions">
+            <i class="fa fa-flag"></i>
+            <i class="fa fa-retweet"></i>
+            <i class="fa fa-heart"></i>
+          </div>
+        </footer>
+      </article>
+    `);
+  };
+
+  // *Ajax implement 1
   const loadTweets = () => {
     $.ajax({
-      url: '/tweets', 
+      url: '/api/tweets',  // fixed URL to match Express route
       method: 'GET',
       success: (tweets) => {
         renderTweets(tweets);
@@ -14,24 +55,26 @@ $(document).ready(function () {
   };
 
   $('form').on('submit', function (event) {
-    event.preventDefault(); 
+    event.preventDefault();
 
     const $form = $(this);
     const tweetText = $form.find('textarea').val();
 
-    // check tweet length
     if (!tweetText || tweetText.length > 140) {
       alert("Tweet must be between 1 and 140 characters.");
       return;
     }
 
-    // send the tweet
+    // *Ajax implement 2
     $.ajax({
-      url: '/tweets',
+      url: '/api/tweets',
       method: 'POST',
-      data: $form.serialize(), 
+      data: $form.serialize(),
       success: () => {
         $form.find('textarea').val('');
+        $form.find('.counter').text(140);
+        $('.new-tweet').slideUp();  // close compose box after successful post
+        $('#compose-button').attr('aria-expanded', 'false');
         loadTweets();
       },
       error: (err) => {
@@ -52,12 +95,21 @@ $(document).ready(function () {
     }
   });
 
-  $('#compose-button').on('click', function () {
-    $('.new-tweet').slideToggle(() => {
-      $('textarea').focus();
-    });
+  // Compose button toggle
+  $('#compose-button').off('click').on('click', function () {
+    const $compose = $('.new-tweet');
+    if ($compose.is(':visible')) {
+      $compose.slideUp(() => {
+        $('#compose-button').attr('aria-expanded', 'false');
+      });
+    } else {
+      $compose.slideDown(() => {
+        $('textarea').focus();
+        $('#compose-button').attr('aria-expanded', 'true');
+      });
+    }
   });
 
-  // load the tweet
+  // Load tweets on page load
   loadTweets();
 });

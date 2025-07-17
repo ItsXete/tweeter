@@ -12,25 +12,26 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
       type="text/css"
     />
-
-    <!-- Google Fonts  -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <!-- Google Fonts stylesheet -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
-      rel="stylesheet"
-    />
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet" />
-
-    <!-- App CSS -->
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- App CSS -->
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
     <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
     <link rel="stylesheet" href="/styles/tweet.css" type="text/css" />
@@ -39,8 +40,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <!-- App JS -->
-    <script type="text/javascript" src="/scripts/client.js" defer></script>
-    <script type="text/javascript" src="/scripts/composer-char-counter.js" defer></script>
+    <script src="/scripts/client.js" defer></script>
+    <script src="/scripts/composer-char-counter.js" defer></script>
 
     <!-- timeago.js -->
     <script
@@ -50,21 +51,21 @@
   </head>
 
   <body>
+    <!-- Navigation -->
     <nav>
       <span class="nav-title">tweeter</span>
-
-      <!-- Compose button -->
       <button
         id="compose-button"
         aria-expanded="false"
         aria-controls="compose-section"
         aria-label="Compose a new tweet"
-        style="cursor:pointer; margin-left: 1em; padding: 0.4em 0.8em; font-weight: 600;"
+        class="compose-button"
       >
         Compose Tweet
       </button>
     </nav>
 
+    <!-- Header -->
     <header>
       <div>
         <img src="/images/profile-hex.png" alt="Profile Avatar" />
@@ -75,13 +76,10 @@
       </div>
     </header>
 
+    <!-- Main Content -->
     <main>
-      <!-- Tweet composer hidden -->
-      <section
-        class="new-tweet"
-        id="compose-section"
-        style="display: none; max-width: 600px; margin: 2em auto;"
-      >
+      <!-- Tweet Composer -->
+      <section class="new-tweet" id="compose-section">
         <h2>Compose Tweet</h2>
         <form action="/api/tweets" method="POST">
           <label for="tweet-text">What are you humming about?</label>
@@ -92,19 +90,21 @@
             placeholder="What's happening?"
             required
           ></textarea>
-          <div>
+          <div class="form-bottom">
             <button type="submit">Tweet</button>
-            <output name="counter" class="counter" for="tweet-text">140</output>
+            <span class="counter">140</span>
           </div>
         </form>
       </section>
 
-      <section id="tweets-container" style="max-width: 600px; margin: 2em auto;">
+      <!-- Tweets List -->
+      <section class="tweets-container">
+        <!-- Tweets loaded here -->
       </section>
     </main>
 
+    <!-- Compose Button Toggle Script -->
     <script>
-      // Compose button toggle
       $('#compose-button').on('click', function () {
         const $composeSection = $('#compose-section');
         $composeSection.slideToggle(() => {

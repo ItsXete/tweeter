@@ -1,10 +1,10 @@
-/* container */
-#tweets-container {
+/* Container for tweets */
+.tweets-container {
   max-width: 600px;
   margin: 2em auto;
 }
 
-/* article style */
+/* Tweet article */
 article.tweet {
   background-color: white;
   border-radius: 8px;
@@ -15,12 +15,12 @@ article.tweet {
   cursor: pointer;
 }
 
-/* hovr effect */
+/* Hover effect */
 article.tweet:hover {
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-/* header */
+/* Header inside tweet */
 article.tweet header {
   display: flex;
   justify-content: space-between;
@@ -28,36 +28,42 @@ article.tweet header {
   margin-bottom: 0.75em;
 }
 
-/* UInfo */
-.tweet-user {
+/* Author info */
+.tweet-author {
   display: flex;
   align-items: center;
-  gap: 0.8em;
+  /* fallback for gap: use margin-right on child */
 }
 
-.tweet-user img {
+.tweet-author img {
   width: 48px;
   height: 48px;
   border-radius: 50%;
+  margin-right: 0.8em;
 }
 
-.name {
+.tweet-author .name {
   font-weight: bold;
   font-size: 1.1rem;
 }
 
+/* Handle */
 .handle {
   color: #555;
   font-weight: 600;
 }
 
+/* Tweet content with padding */
 .tweet-content {
   font-size: 1rem;
   line-height: 1.4;
   margin-bottom: 1em;
   color: #333;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
 }
 
+/* Footer */
 article.tweet footer {
   display: flex;
   justify-content: space-between;
@@ -66,12 +72,29 @@ article.tweet footer {
   color: #777;
 }
 
+/* Tweet actions icons */
 .tweet-actions i {
   margin-left: 1em;
   color: #888;
   transition: color 0.3s ease;
 }
 
+/* Hover effect on icons */
 article.tweet:hover .tweet-actions i {
-  color: #4056A1;
+  color: #4056A1; /* highlight color */
+}
+
+/* Compose button style */
+.compose-button {
+  cursor: pointer;
+  margin-left: 1em;
+  padding: 0.4em 0.8em;
+  font-weight: 600;
+}
+
+/* Hide tweet composer by default */
+#compose-section {
+  display: none;
+  max-width: 600px;
+  margin: 2em auto;
 }
