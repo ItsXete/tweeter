@@ -35,19 +35,6 @@
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
     <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
     <link rel="stylesheet" href="/styles/tweet.css" type="text/css" />
-
-    <!-- External JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    <!-- App JS -->
-    <script src="/scripts/client.js" defer></script>
-    <script src="/scripts/composer-char-counter.js" defer></script>
-
-    <!-- timeago.js -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"
-      defer
-    ></script>
   </head>
 
   <body>
@@ -79,10 +66,11 @@
     <!-- Main Content -->
     <main>
       <!-- Tweet Composer -->
-      <section class="new-tweet" id="compose-section">
+      <section class="new-tweet" id="compose-section" style="display:none;">
         <h2>Compose Tweet</h2>
         <form action="/api/tweets" method="POST">
           <label for="tweet-text">What are you humming about?</label>
+          <div class="error-message" style="display:none; color: red; margin: 0.25em 0;"></div>
           <textarea
             name="text"
             id="tweet-text"
@@ -103,19 +91,14 @@
       </section>
     </main>
 
-    <!-- Compose Button Toggle Script -->
-    <script>
-      $('#compose-button').on('click', function () {
-        const $composeSection = $('#compose-section');
-        $composeSection.slideToggle(() => {
-          if ($composeSection.is(':visible')) {
-            $('#compose-button').attr('aria-expanded', 'true');
-            $('#tweet-text').focus();
-          } else {
-            $('#compose-button').attr('aria-expanded', 'false');
-          }
-        });
-      });
-    </script>
+    <!-- External JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- App JS -->
+    <script src="/scripts/client.js"></script>
+    <script src="/scripts/composer-char-counter.js"></script>
+
+    <!-- timeago.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
   </body>
 </html>

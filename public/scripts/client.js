@@ -11,61 +11,72 @@ $(document).ready(function () {
   };
 
   const createTweetElement = function(tweet) {
-  const escape = function(str) {
-    let div = document.createElement("div");
-    div.appendChild(document.createTextNode(str));
-    return div.innerHTML;
+    const escape = function(str) {
+      let div = document.createElement("div");
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
+    };
+
+    return $(`
+      <article class="tweet">
+        <header>
+          <div class="tweet-author">
+            <img src="${escape(tweet.user.avatars)}" alt="Avatar">
+            <span class="name">${escape(tweet.user.name)}</span>
+          </div>
+          <span class="handle">${escape(tweet.user.handle)}</span>
+        </header>
+        <p class="tweet-content">${escape(tweet.content.text)}</p>
+        <footer>
+          <span class="time">${timeago.format(tweet.created_at)}</span>
+          <div class="tweet-actions">
+            <i class="fa fa-flag"></i>
+            <i class="fa fa-retweet"></i>
+            <i class="fa fa-heart"></i>
+          </div>
+        </footer>
+      </article>
+    `);
   };
 
-  return $(`
-    <article class="tweet">
-      <header>
-        <div class="tweet-author">
-          <img src="${escape(tweet.user.avatars)}" alt="Avatar">
-          <span class="name">${escape(tweet.user.name)}</span>
-        </div>
-        <span class="handle">${escape(tweet.user.handle)}</span>
-      </header>
-      <p class="tweet-content">${escape(tweet.content.text)}</p>
-      <footer>
-        <span class="time">${timeago.format(tweet.created_at)}</span>
-        <div class="tweet-actions">
-          <i class="fa fa-flag"></i>
-          <i class="fa fa-retweet"></i>
-          <i class="fa fa-heart"></i>
-        </div>
-      </footer>
-    </article>
-  `);
-};
-
-  // *Ajax implement 1
+  // Ajax GET tweets
   const loadTweets = () => {
-  $.ajax({
-    url: '/api/tweets', // GET request to your back-end
-    method: 'GET',
-    dataType: 'json',    // expect JSON array
-    success: (tweets) => {
-      renderTweets(tweets); // render all tweets to page
-    },
-    error: (err) => {
-      console.error('Error fetching tweets:', err);
-    }
-  });
-};
+    $.ajax({
+      url: '/api/tweets',
+      method: 'GET',
+      success: (tweets) => {
+        renderTweets(tweets);
+      },
+      error: (err) => {
+        console.error('Error fetching tweets:', err);
+        // Optional: show a page-wide error message here if desired
+      }
+    });
+  };
 
   $('form').on('submit', function (event) {
     event.preventDefault();
 
     const $form = $(this);
     const tweetText = $form.find('textarea').val();
+    const $errorMessage = $form.find('.error-message');
 
-    if (!tweetText || tweetText.length > 140) {
-      alert("Tweet must be between 1 and 140 characters.");
+    // Clear previous error message
+    $errorMessage.text('').hide();
+
+    // Validate empty tweet
+    if (!tweetText) {
+      $errorMessage.text("Tweet cannot be empty.").show();
       return;
     }
 
-    // *Ajax implement 2
+    // Validate tweet length
+    if (tweetText.length > 140) {
+      $errorMessage.text("Tweet must be 140 characters or less.").show();
+      return;
+    }
+
+    // If validation passes, send AJAX POST
     $.ajax({
       url: '/api/tweets',
       method: 'POST',
@@ -73,16 +84,18 @@ $(document).ready(function () {
       success: () => {
         $form.find('textarea').val('');
         $form.find('.counter').text(140);
-        $('.new-tweet').slideUp();  // close compose box after successful post
+        $('.new-tweet').slideUp();
         $('#compose-button').attr('aria-expanded', 'false');
         loadTweets();
       },
       error: (err) => {
         console.error('Tweet submission failed:', err);
+        alert("Failed to submit tweet. Please try again.");
       }
     });
   });
 
+  // Counter update
   $('textarea').on('input', function () {
     const remaining = 140 - $(this).val().length;
     const $counter = $(this).closest('form').find('.counter');
@@ -110,6 +123,6 @@ $(document).ready(function () {
     }
   });
 
-  // Load tweets on page load
+  // Load tweets initially
   loadTweets();
 });
