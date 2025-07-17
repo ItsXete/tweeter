@@ -1,0 +1,77 @@
+/* container */
+#tweets-container {
+  max-width: 600px;
+  margin: 2em auto;
+}
+
+/* article style */
+article.tweet {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1em 1.5em;
+  margin-bottom: 1em;
+  box-shadow: 0 0 3px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+/* hovr effect */
+article.tweet:hover {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* header */
+article.tweet header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75em;
+}
+
+/* UInfo */
+.tweet-user {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+}
+
+.tweet-user img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.name {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.handle {
+  color: #555;
+  font-weight: 600;
+}
+
+.tweet-content {
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-bottom: 1em;
+  color: #333;
+}
+
+article.tweet footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.tweet-actions i {
+  margin-left: 1em;
+  color: #888;
+  transition: color 0.3s ease;
+}
+
+article.tweet:hover .tweet-actions i {
+  color: #4056A1;
+}
