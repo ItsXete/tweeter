@@ -55,45 +55,40 @@ $(document).ready(function () {
   };
 
   $('form').on('submit', function (event) {
-    event.preventDefault();
+  event.preventDefault();
 
-    const $form = $(this);
-    const tweetText = $form.find('textarea').val();
-    const $errorMessage = $form.find('.error-message');
+  const $form = $(this);
+  const tweetText = $form.find('textarea').val().trim(); // Trim spaces
 
-    // Clear previous error message
-    $errorMessage.text('').hide();
+  // Validation with alert (per requirement)
+  if (!tweetText) {
+    alert("Tweet cannot be empty.");
+    return;
+  }
 
-    // Validate empty tweet
-    if (!tweetText) {
-      $errorMessage.text("Tweet cannot be empty.").show();
-      return;
+  if (tweetText.length > 140) {
+    alert("Tweet must be 140 characters or less.");
+    return;
+  }
+
+  // Proceed with submission
+  $.ajax({
+    url: '/api/tweets',
+    method: 'POST',
+    data: $form.serialize(),
+    success: () => {
+      $form.find('textarea').val('');
+      $form.find('.counter').text(140);
+      $('.new-tweet').slideUp();
+      $('#compose-button').attr('aria-expanded', 'false');
+      loadTweets();
+    },
+    error: (err) => {
+      console.error('Tweet submission failed:', err);
+      alert("Failed to submit tweet. Please try again.");
     }
-
-    // Validate tweet length
-    if (tweetText.length > 140) {
-      $errorMessage.text("Tweet must be 140 characters or less.").show();
-      return;
-    }
-
-    // If validation passes, send AJAX POST
-    $.ajax({
-      url: '/api/tweets',
-      method: 'POST',
-      data: $form.serialize(),
-      success: () => {
-        $form.find('textarea').val('');
-        $form.find('.counter').text(140);
-        $('.new-tweet').slideUp();
-        $('#compose-button').attr('aria-expanded', 'false');
-        loadTweets();
-      },
-      error: (err) => {
-        console.error('Tweet submission failed:', err);
-        alert("Failed to submit tweet. Please try again.");
-      }
-    });
   });
+});
 
   // Counter update
   $('textarea').on('input', function () {
