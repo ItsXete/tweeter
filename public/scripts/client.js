@@ -11,48 +11,48 @@ $(document).ready(function () {
   };
 
   const createTweetElement = function(tweet) {
-    // Escape text to avoid XSS
-    const escape = function(str) {
-      let div = document.createElement('div');
-      div.appendChild(document.createTextNode(str));
-      return div.innerHTML;
-    };
-
-    return $(`
-      <article class="tweet">
-        <header>
-          <div class="tweet-author">
-            <img src="${escape(tweet.user.avatars)}" alt="User Avatar" />
-            <span class="name">${escape(tweet.user.name)}</span>
-          </div>
-          <span class="handle">${escape(tweet.user.handle)}</span>
-        </header>
-        <p class="tweet-content">${escape(tweet.content.text)}</p>
-        <footer>
-          <span class="time">${timeago.format(tweet.created_at)}</span>
-          <div class="tweet-actions">
-            <i class="fa fa-flag"></i>
-            <i class="fa fa-retweet"></i>
-            <i class="fa fa-heart"></i>
-          </div>
-        </footer>
-      </article>
-    `);
+  const escape = function(str) {
+    let div = document.createElement("div");
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
   };
+
+  return $(`
+    <article class="tweet">
+      <header>
+        <div class="tweet-author">
+          <img src="${escape(tweet.user.avatars)}" alt="Avatar">
+          <span class="name">${escape(tweet.user.name)}</span>
+        </div>
+        <span class="handle">${escape(tweet.user.handle)}</span>
+      </header>
+      <p class="tweet-content">${escape(tweet.content.text)}</p>
+      <footer>
+        <span class="time">${timeago.format(tweet.created_at)}</span>
+        <div class="tweet-actions">
+          <i class="fa fa-flag"></i>
+          <i class="fa fa-retweet"></i>
+          <i class="fa fa-heart"></i>
+        </div>
+      </footer>
+    </article>
+  `);
+};
 
   // *Ajax implement 1
   const loadTweets = () => {
-    $.ajax({
-      url: '/api/tweets',  // fixed URL to match Express route
-      method: 'GET',
-      success: (tweets) => {
-        renderTweets(tweets);
-      },
-      error: (err) => {
-        console.error('Error loading tweets:', err);
-      }
-    });
-  };
+  $.ajax({
+    url: '/api/tweets', // GET request to your back-end
+    method: 'GET',
+    dataType: 'json',    // expect JSON array
+    success: (tweets) => {
+      renderTweets(tweets); // render all tweets to page
+    },
+    error: (err) => {
+      console.error('Error fetching tweets:', err);
+    }
+  });
+};
 
   $('form').on('submit', function (event) {
     event.preventDefault();
