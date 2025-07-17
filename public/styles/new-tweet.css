@@ -22,7 +22,7 @@
 .new-tweet textarea {
   width: 100%;
   min-height: 80px;
-  padding: 0.5em;
+  padding: 10px; 
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -54,4 +54,14 @@
 .new-tweet .counter {
   font-size: 1rem;
   color: #999;
+}
+
+.new-tweet textarea:focus,
+.new-tweet button:focus {
+  outline: none;
+  border-color: #2c3e99; /* border color */
+  box-shadow: 0 0 5px rgba(44, 62, 153, 0.7); /* glow */
+}
+.counter.over-limit {
+  color: red;
 }
