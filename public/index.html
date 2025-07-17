@@ -63,33 +63,34 @@
       </div>
     </header>
 
-    <!-- Main Content -->
-    <main>
-      <!-- Tweet Composer -->
-      <section class="new-tweet" id="compose-section" style="display:none;">
-        <h2>Compose Tweet</h2>
-        <form action="/api/tweets" method="POST">
-          <label for="tweet-text">What are you humming about?</label>
-          <div class="error-message" style="display:none; color: red; margin: 0.25em 0;"></div>
-          <textarea
-            name="text"
-            id="tweet-text"
-            maxlength="140"
-            placeholder="What's happening?"
-            required
-          ></textarea>
-          <div class="form-bottom">
-            <button type="submit">Tweet</button>
-            <span class="counter">140</span>
-          </div>
-        </form>
-      </section>
+<!-- Main Content -->
+<main>
+  <!-- Tweet Composer -->
+  <section class="new-tweet" id="compose-section" style="display:none;">
+    <h2>Compose Tweet</h2>
+    <form action="/api/tweets" method="POST">
+      <div class="error-message" aria-live="polite"></div>
+      <label for="tweet-text">What are you humming about?</label>
+      <textarea
+        name="text"
+        id="tweet-text"
+        maxlength="140"
+        placeholder="What's happening?"
+        required
+      ></textarea>
+      <div class="form-bottom">
+        <button type="submit">Tweet</button>
+        <span class="counter">140</span>
+      </div>
+    </form>
+  </section>
 
-      <!-- Tweets List -->
-      <section class="tweets-container">
-        <!-- Tweets loaded here -->
-      </section>
-    </main>
+  <!-- Tweets List -->
+  <section class="tweets-container">
+    <!-- Tweets loaded here -->
+  </section>
+</main>
+
 
     <!-- External JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

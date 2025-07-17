@@ -54,20 +54,25 @@ $(document).ready(function () {
     });
   };
 
+  // Form validation
   $('form').on('submit', function (event) {
   event.preventDefault();
 
   const $form = $(this);
   const tweetText = $form.find('textarea').val().trim(); // Trim spaces
+  const $error = $('.error-message'); // Show err
+
+  // Hide err func
+  $error.slideUp();
 
   // Validation with alert (per requirement)
   if (!tweetText) {
-    alert("Tweet cannot be empty.");
+    $error.text("Tweet cannot be empty.").slideDown();
     return;
   }
 
   if (tweetText.length > 140) {
-    alert("Tweet must be 140 characters or less.");
+    $error.text("Tweet must be 140 characters or less.").slideDown();
     return;
   }
 
@@ -81,11 +86,12 @@ $(document).ready(function () {
       $form.find('.counter').text(140);
       $('.new-tweet').slideUp();
       $('#compose-button').attr('aria-expanded', 'false');
+      $error.slideUp();
       loadTweets();
     },
     error: (err) => {
       console.error('Tweet submission failed:', err);
-      alert("Failed to submit tweet. Please try again.");
+      $error.text("Failed to submit tweet. Please try again.").slideDown();
     }
   });
 });

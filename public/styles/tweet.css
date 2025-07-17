@@ -98,3 +98,18 @@ article.tweet:hover .tweet-actions i {
   max-width: 600px;
   margin: 2em auto;
 }
+
+/* Show err msg */
+.error-message {
+  background-color: #ffe6e6;
+  border: 1px solid #ff4d4d;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #cc0000;
+  margin-bottom: 1em;
+  display: none;    
+  box-sizing: border-box;
+  max-width: 600px;
+  width: 100%;
+}

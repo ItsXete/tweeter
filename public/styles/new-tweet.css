@@ -57,6 +57,7 @@
 }
 
 .new-tweet textarea:focus,
+
 .new-tweet button:focus {
   outline: none;
   border-color: #2c3e99; /* border color */
@@ -64,4 +65,15 @@
 }
 .counter.over-limit {
   color: red;
+}
+
+.error-message {
+  display: none; /* Hide by default */
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-weight: bold;
 }
