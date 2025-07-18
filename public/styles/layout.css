@@ -1,8 +1,4 @@
-/*
- * http://www.paulirish.com/2012/box-sizing-border-box-ftw/
- * https://css-tricks.com/international-box-sizing-awareness-day/
- * Do not modify these two selectors, please
- */
+/* --- Don't Modify --- */
 html {
   box-sizing: border-box;
 }
@@ -10,21 +6,66 @@ html {
   box-sizing: inherit;
 }
 
-/* Global changes are made here */
-main {
-  width: 90%;
-  margin: 0 auto; /* centers the element horizontally */
-  background-color: inherit; /* from body */
-}
-
+/* --- Global Styles --- */
 body {
   color: #545149;
-  background-color: #f4f1ec; /* Use your chosen body background */
+  background-color: #f4f1ec;
   font-size: 24px;
   font-family: 'Source Sans 3', sans-serif;
-  padding-top: 120px; /* Push content below fixed nav */
+  padding-top: 120px; /* Mobile: pushes content below nav */
+  margin: 0;
 }
 
-/*
- * Additional CSS can be defined below or in other CSS files, as per instructions
- */
+/* --- Mobile-first main content --- */
+main {
+  width: 90%;
+  margin: 0 auto;
+  background-color: inherit;
+}
+
+/* --- Responsive layout for desktop (≥1024px) --- */
+@media (min-width: 768px) and (max-width: 1023px) {
+  body {
+    display: flex;
+    flex-direction: row;
+    padding-top: 0; /* Remove top padding since nav is now a sidebar */
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 180px;
+    flex-shrink: 0;
+    background-color: #4056A1;
+    color: white;
+    padding: 2em 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  header {
+    width: 100%;
+    padding: 2em;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+  }
+
+  main {
+    max-width: 700px;
+    padding: 1.5em;
+    margin: 1.5em auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  #compose-section {
+    margin-bottom: 2em;
+  }
+
+  .tweets-container {
+    margin-top: 2em;
+  }
+}

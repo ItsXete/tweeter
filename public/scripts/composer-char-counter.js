@@ -7,17 +7,21 @@ $(document).ready(function () {
     const inputLength = $(this).val().length;
     const charsLeft = maxChars - inputLength;
 
-    // Find closest
-    const counter = $(this).closest("form").find(".counter");
+    // Closest form observer
+    const $form = $(this).closest("form");
+    const $counter = $form.find(".counter");
+    const $errorMessage = $form.find(".error-message");
 
     // Update text
-    counter.text(charsLeft);
+    $counter.text(charsLeft);
 
     // Over limit warning
     if (charsLeft < 0) {
-      counter.addClass("over-limit");
+      $counter.addClass("over-limit");
+      $errorMessage.text("🚫 Tweet exceeds 140 characters!").slideDown();
     } else {
-      counter.removeClass("over-limit");
+      $counter.removeClass("over-limit");
+      $errorMessage.slideUp();
     }
   });
 });

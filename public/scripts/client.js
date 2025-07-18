@@ -1,4 +1,6 @@
 $(document).ready(function () {
+  const $error = $('.error-message');
+$error.text('').hide();
 
   const renderTweets = function(tweets) {
     const $tweetsContainer = $('.tweets-container');
@@ -60,19 +62,19 @@ $(document).ready(function () {
 
   const $form = $(this);
   const tweetText = $form.find('textarea').val().trim(); // Trim spaces
-  const $error = $('.error-message'); // Show err
+  const $error = $form.find('.error-message'); // Scope error message within form
 
   // Hide err func
-  $error.slideUp();
+  $error.slideUp().text('');
 
   // Validation with alert (per requirement)
   if (!tweetText) {
-    $error.text("Tweet cannot be empty.").slideDown();
+    $error.text("Tweet empty. Just like head.").slideDown();
     return;
   }
 
   if (tweetText.length > 140) {
-    $error.text("Tweet must be 140 characters or less.").slideDown();
+    $error.text("Too much thinking, shutting off.").slideDown();
     return;
   }
 
@@ -98,31 +100,43 @@ $(document).ready(function () {
 
   // Counter update
   $('textarea').on('input', function () {
-    const remaining = 140 - $(this).val().length;
-    const $counter = $(this).closest('form').find('.counter');
-    $counter.text(remaining);
+  const maxChars = 140;
+  const currentLength = $(this).val().length;
+  const charsLeft = maxChars - currentLength;
 
-    if (remaining < 0) {
-      $counter.addClass('over-limit');
-    } else {
-      $counter.removeClass('over-limit');
-    }
-  });
+  const $counter = $(this).closest('form').find('.counter');
+  const $error = $(this).closest('form').find('.error-message');
+
+  $counter.text(charsLeft);
+
+  if (charsLeft < 0) {
+    $counter.addClass('over-limit');
+    $error.text("Too much thinking, shutting off.").slideDown();
+  } else {
+    $counter.removeClass('over-limit');
+    $error.slideUp().text('');
+  }
+});
 
   // Compose button toggle
-  $('#compose-button').off('click').on('click', function () {
-    const $compose = $('.new-tweet');
-    if ($compose.is(':visible')) {
-      $compose.slideUp(() => {
-        $('#compose-button').attr('aria-expanded', 'false');
-      });
-    } else {
-      $compose.slideDown(() => {
-        $('textarea').focus();
-        $('#compose-button').attr('aria-expanded', 'true');
-      });
-    }
-  });
+$('#compose-button').off('click').on('click', function () {
+  const $compose = $('.new-tweet');
+  const $error = $compose.find('.error-message');  // find error-message inside form
+
+  if ($compose.is(':visible')) {
+    $compose.slideUp(() => {
+      $('#compose-button').attr('aria-expanded', 'false');
+    });
+  } else {
+    $compose.slideDown(() => {
+      $('textarea').focus();
+      $('#compose-button').attr('aria-expanded', 'true');
+      
+      // Reset error message and hide it when form opens
+      $error.text('').hide();
+    });
+  }
+});
 
   // Load tweets initially
   loadTweets();
