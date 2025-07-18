@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  console.log("composer-char-counter.js is loaded!");
+  console.debug("composer-char-counter.js is loaded!");
 
   // Event listener
   $(".new-tweet textarea").on("input", function () {

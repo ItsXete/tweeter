@@ -36,3 +36,12 @@ nav .nav-tweet-btn i {
   margin-top: 0.25em;
   color: #FFFFFF;
 }
+
+/* Mobile responsiveness-es */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+}

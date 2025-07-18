@@ -61,6 +61,12 @@ article.tweet header {
   color: #333;
   padding-left: 0.2em;
   padding-right: 0.2em;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word; 
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* Footer */
@@ -77,11 +83,12 @@ article.tweet footer {
   margin-left: 1em;
   color: #888;
   transition: color 0.3s ease;
+  cursor: pointer;
 }
 
-/* Hover effect on icons */
-article.tweet:hover .tweet-actions i {
-  color: #4056A1; /* highlight color */
+/* Change color only when hovering over the icon itself */
+.tweet-actions i:hover {
+  color: gold; /* or #FFD700 */
 }
 
 /* Compose button style */
