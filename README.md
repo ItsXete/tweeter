@@ -18,3 +18,6 @@ This repository is the starter code for the project: Students will fork and clon
 - Node 5.10.x or above
 
 ## Screenshots
+![Tweet Screenshot1](https://github.com/ItsXete/tweeter/blob/master/docs/tweet1.PNG?raw=true)
+![Tweet Screenshot2](https://github.com/ItsXete/tweeter/blob/master/docs/tweet2.PNG?raw=true)
+![Tweet Screenshot3](https://github.com/ItsXete/tweeter/blob/master/docs/tweet3.PNG?raw=true)
