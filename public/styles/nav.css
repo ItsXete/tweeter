@@ -17,7 +17,7 @@ nav {
 
 /* Apply Bungee font only to the nav-title */
 nav .nav-title {
-  font-family: 'Bungee', cursive;
+  font-family: "Bungee", cursive;
 }
 
 /* Make the tweet button a flex container for vertical alignment */
